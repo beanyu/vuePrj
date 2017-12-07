@@ -1,3 +1,6 @@
+let sortingStep = []
+
+
 function _mergeSort( items, l, r ){
 	if( l >= r )
 		return
@@ -18,24 +21,28 @@ function _merge( items, l, r, mid ){
 	for(var k=l; k<=r; k++){
 		setTimeout(1000);
 		if( i > mid ){
-			//items[k] = trans[j-l]
-			items.splice(k, 1);
-			items.splice(k, 0, trans[j-l]);
+			items[k] = trans[j-l]
+			sortingStep.push( [k, trans[j-l]] )
+			//items.splice(k, 1);
+			//items.splice(k, 0, trans[j-l]);
 			j++
 		}else if( j > r ){
-			//items[k] = trans[i-l]
-			items.splice(k, 1);
-			items.splice(k, 0, trans[i-l]);
+			items[k] = trans[i-l]
+			//items.splice(k, 1);
+			//items.splice(k, 0, trans[i-l]);
+			sortingStep.push( [k, trans[i-l]] )
 			i++
 		}else if( trans[i-l] < trans[j-l] ){
-			//items[k] = trans[i-l]
-			items.splice(k, 1);
-			items.splice(k, 0, trans[i-l]);
+			items[k] = trans[i-l]
+			sortingStep.push( [k, trans[i-l]] )
+			//items.splice(k, 1);
+			//items.splice(k, 0, trans[i-l]);
 			i++
 		}else{
-			//items[k] = trans[j-l]
-			items.splice(k, 1);
-			items.splice(k, 0, trans[j-l]);
+			items[k] = trans[j-l]
+			sortingStep.push( [k, trans[j-l]] )
+			//items.splice(k, 1);
+			//items.splice(k, 0, trans[j-l]);
 			j++
 		}
 
@@ -44,8 +51,10 @@ function _merge( items, l, r, mid ){
 }
 
 module.exports = ( items ) => {
-	console.log(items)
-	_mergeSort( items, 0, items.length-1 )
-	console.log(items)
-	return items
+	var l = new Array(items.length)
+	l = items.slice()
+	console.log(l)
+	_mergeSort( l, 0, l.length-1 )
+	console.log('step '+sortingStep)
+	return sortingStep
 }
